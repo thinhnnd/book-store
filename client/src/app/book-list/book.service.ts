@@ -3,14 +3,15 @@ import { Injectable, PipeTransform } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
-import { Country } from './country';
-import { COUNTRIES } from './countries';
+import { Country, IBook } from './book.interface';
+import { BOOKS, COUNTRIES } from './mocks';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
 
 interface SearchResult {
-  countries: Country[];
+  //   countries: Country[];
+  books: IBook[];
   total: number;
 }
 
@@ -25,39 +26,34 @@ interface State {
 const compare = (v1: string | number, v2: string | number) =>
   v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(
-  countries: Country[],
-  column: SortColumn,
-  direction: string
-): Country[] {
+function sort(books: IBook[], column: SortColumn, direction: string): IBook[] {
   if (direction === '' || column === '') {
-    return countries;
+    return books;
   } else {
-    return [...countries].sort((a, b) => {
+    return [...books].sort((a, b) => {
       const res = compare(a[column], b[column]);
       return direction === 'asc' ? res : -res;
     });
   }
 }
 
-function matches(country: Country, term: string, pipe: PipeTransform) {
+function matches(book: IBook, term: string, pipe: PipeTransform) {
   return (
-    country.name.toLowerCase().includes(term.toLowerCase()) ||
-    pipe.transform(country.area).includes(term) ||
-    pipe.transform(country.population).includes(term)
+    book.title.toLowerCase().includes(term.toLowerCase()) ||
+    book.description.toLowerCase().includes(term.toLowerCase())
   );
 }
 
 @Injectable({ providedIn: 'root' })
-export class CountryService {
+export class BookService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _countries$ = new BehaviorSubject<Country[]>([]);
+  private _books$ = new BehaviorSubject<IBook[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
 
   private _state: State = {
     page: 1,
-    pageSize: 4,
+    pageSize: 10,
     searchTerm: '',
     sortColumn: '',
     sortDirection: '',
@@ -73,15 +69,15 @@ export class CountryService {
         tap(() => this._loading$.next(false))
       )
       .subscribe((result) => {
-        this._countries$.next(result.countries);
+        this._books$.next(result.books);
         this._total$.next(result.total);
       });
 
     this._search$.next();
   }
 
-  get countries$() {
-    return this._countries$.asObservable();
+  get books$() {
+    return this._books$.asObservable();
   }
   get total$() {
     return this._total$.asObservable();
@@ -125,19 +121,17 @@ export class CountryService {
       this._state;
 
     // 1. sort
-    let countries = sort(COUNTRIES, sortColumn, sortDirection);
+    let books = sort(BOOKS, sortColumn, sortDirection);
 
     // 2. filter
-    countries = countries.filter((country) =>
-      matches(country, searchTerm, this.pipe)
-    );
-    const total = countries.length;
+    books = books.filter((book) => matches(book, searchTerm, this.pipe));
+    const total = books.length;
 
     // 3. paginate
-    countries = countries.slice(
+    books = books.slice(
       (page - 1) * pageSize,
       (page - 1) * pageSize + pageSize
     );
-    return of({ countries, total });
+    return of({ books, total });
   }
 }

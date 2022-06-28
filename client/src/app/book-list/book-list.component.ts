@@ -1,25 +1,25 @@
 import { DecimalPipe } from '@angular/common';
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Country } from './country';
-import { CountryService } from './country.service';
+import { Country, IBook } from './book.interface';
+import { BookService } from './book.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 
 @Component({
   template: 'app-book-list',
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.scss'],
-  providers: [CountryService, DecimalPipe],
+  providers: [BookService, DecimalPipe],
 })
 export class BookListComponent {
-  countries$: Observable<Country[]>;
+  books$: Observable<IBook[]>;
   total$: Observable<number>;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader> =
     new QueryList<NgbdSortableHeader>();
 
-  constructor(public service: CountryService) {
-    this.countries$ = service.countries$;
+  constructor(public service: BookService) {
+    this.books$ = service.books$;
     this.total$ = service.total$;
   }
 
