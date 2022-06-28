@@ -15,11 +15,8 @@ class BookController {
   }
 
   public initializeRoutes() {
-    this.router.get(this.path, this.bookService.getAllBooks.bind(this));
-    this.router.post(
-      `${this.path}/:bookId`,
-      this.bookService.createBook.bind(this),
-    );
+    this.router.get(this.path, this.getBooks.bind(this));
+    this.router.post(`${this.path}/:bookId`, this.createBook.bind(this));
   }
 
   async getBooks(request: express.Request, response: express.Response) {
