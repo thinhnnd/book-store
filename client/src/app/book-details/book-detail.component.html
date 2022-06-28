@@ -1,11 +1,12 @@
 <section id="book-detail" class="container">
-    <div class="row">
+    <div class="row mt-15">
         <div class="col-6">
-            <img src="https://robohash.org/eligendimagnamassumenda.png?size=100x100&set=set1" />
+            <img [src]="book.image" />
         </div>
         <div class="col-6">
-            <p>Book title</p>
-            <p>Book category</p>
+            <h3>{{ book.title }}</h3>
+            <br />
+            <p>{{ book.category }}</p>
         </div>
     </div>
 
@@ -13,7 +14,7 @@
         <div class="col-12">
             <h5>Description
             </h5>
-            <p>Description Detail</p>
+            <p>{{book.description}}</p>
         </div>
     </div>
 
