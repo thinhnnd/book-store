@@ -1,17 +1,26 @@
 <main class="form-signin">
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-        <h1 class="h3 mb-3 fw-normal">Signin</h1>
+        <h1 class="h3 mb-3 fw-normal">Login</h1>
         <div class="form-floating">
-            <input type="email" class="form-control" id="email" placeholder="name@example.com">
+            <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@example.com">
             <label for="email">Email</label>
+            <div *ngIf="submitted && f['email'].invalid" class="alert alert-danger">
+                <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
+                <div *ngIf="f['email'].errors && f['email'].errors['email']">Please, enter valid email address.</div>
+            </div>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input formControlName="password" type="password" class="form-control" id="password" placeholder="Password">
             <label for="password">Password</label>
+            <div *ngIf="submitted && f['password'].invalid" class="alert alert-danger">
+                <div *ngIf="f['password'].errors && f['password'].errors['required']">Please, enter valid password.
+                </div>
+                <div *ngIf="f['password'].errors && f['password'].errors['minlength']">Password must be 6 characters
+                </div>
+                <div class="mb-3">
+                </div>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
         </div>
-        <div class="mb-3">
-        </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Login in</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
     </form>
 </main>
