@@ -1,0 +1,73 @@
+<main class="form-signin">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <h1 class="h3 mb-3 fw-normal">Register</h1>
+        <div class="form-floating">
+            <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@example.com">
+            <label for="email">Email</label>
+            <div *ngIf="submitted && f['email'].invalid" class="alert alert-danger">
+                <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
+                <div *ngIf="f['email'].errors && f['email'].errors['email']">Please, enter valid email address.</div>
+            </div>
+
+            <div class="mb-2">
+            </div>
+        </div>
+
+        <div class="form-floating">
+            <input type="text" class="form-control" id="fistName" formControlName="fistName" placeholder="">
+            <label for="email">First Name</label>
+            <!-- <div *ngIf="submitted && f['email'].invalid" class="alert alert-danger">
+                        <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
+                        <div *ngIf="f['email'].errors && f['email'].errors['email']">Please, enter valid email address.</div>
+                    </div> -->
+
+            <div class="mb-2">
+            </div>
+        </div>
+
+        <div class="form-floating">
+            <input formControlName="lastName" type="text" class="form-control" id="lastName" placeholder="">
+            <label for="lastName">Last Name</label>
+            <!-- <div *ngIf="submitted && f['email'].invalid" class="alert alert-danger">
+                    <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
+                    <div *ngIf="f['email'].errors && f['email'].errors['email']">Please, enter valid email address.</div>
+                </div> -->
+            <div class="mb-2">
+            </div>
+        </div>
+
+        <div class="form-floating">
+            <input formControlName="password" type="password" class="form-control" id="password" placeholder="Password">
+            <label for="password">Password</label>
+            <div *ngIf="submitted && f['password'].invalid" class="alert alert-danger">
+                <div *ngIf="f['password'].errors && f['password'].errors['required']">Please, enter valid
+                    password.
+                </div>
+                <div *ngIf="f['password'].errors && f['password'].errors['minlength']">Password must be 6
+                    characters
+                </div>
+                <div class="mb-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-floating">
+            <input formControlName="passwordRetyped" type="password" class="form-control" id="passwordRetyped"
+                placeholder="Retyped Password">
+            <label for="passwordRetyped">Retyped Password</label>
+            <div *ngIf="submitted && f['passwordRetyped'].invalid" class="alert alert-danger">
+                <div *ngIf="f['passwordRetyped'].errors && f['passwordRetyped'].errors['required']">Please, enter valid
+                    password.
+                </div>
+                <div *ngIf="f['passwordRetyped'].errors && f['passwordRetyped'].errors['minlength']">Password must be 6
+                    characters
+                </div>
+                <div class="mb-3">
+                </div>
+            </div>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+
+    </form>
+</main>

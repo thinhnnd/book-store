@@ -5,6 +5,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SecondaryLayoutComponent } from './secondary-layout/seconday-layout.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   // basic routes
@@ -20,7 +21,10 @@ const routes: Routes = [
   {
     path: '',
     component: SecondaryLayoutComponent,
-    children: [{ path: 'login', component: LoginComponent }],
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+    ],
   },
   // redirect to home
   { path: '**', redirectTo: '' },

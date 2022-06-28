@@ -8,10 +8,10 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   returnUrl: string;
@@ -24,6 +24,8 @@ export class LoginComponent implements OnInit {
     this.returnUrl = '';
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
+      fistName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
