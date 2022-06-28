@@ -7,20 +7,19 @@ import { AppLayoutComponent } from './app-layout/app-layout.component';
 import { HomeComponent } from './home/home.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { LoginComponent } from './login/login.component';
+import { SecondaryLayoutComponent } from './secondary-layout/seconday-layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppLayoutComponent,
+    SecondaryLayoutComponent,
     HomeComponent,
     ContactUsComponent,
-    LoginComponent
+    LoginComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

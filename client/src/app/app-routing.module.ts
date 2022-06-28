@@ -4,6 +4,7 @@ import { AppLayoutComponent } from './app-layout/app-layout.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { SecondaryLayoutComponent } from './secondary-layout/seconday-layout.component';
 
 const routes: Routes = [
   // basic routes
@@ -16,7 +17,11 @@ const routes: Routes = [
     ],
   },
   // login route
-  { path: 'login', component: LoginComponent },
+  {
+    path: '',
+    component: SecondaryLayoutComponent,
+    children: [{ path: 'login', component: LoginComponent }],
+  },
   // redirect to home
   { path: '**', redirectTo: '' },
 ];
