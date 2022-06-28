@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { SecondaryLayoutComponent } from './secondary-layout/seconday-layout.component';
 import { RegisterComponent } from './register/register.component';
 import { BookListComponent } from './book-list/book-list.component';
+import { BookDetailComponent } from './book-details/book-detail.component';
 
 const routes: Routes = [
   // basic routes
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'contact-us', component: ContactUsComponent },
       { path: 'books', component: BookListComponent },
+      { path: 'books/:id', component: BookDetailComponent },
     ],
   },
   // login route
