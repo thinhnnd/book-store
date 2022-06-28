@@ -1,29 +1,33 @@
 import * as express from 'express';
-import { Express, Request, Response } from 'express';
-import * as dotenv from 'dotenv';
-import { Book } from 'models/book.model';
-import { Category } from 'common/category.enum';
-import { booksData } from 'mocks/book.mock';
-import { users } from 'mocks/user.mock';
+import * as bodyParser from 'body-parser';
 
-dotenv.config();
+class App {
+  public app: express.Application;
+  public port: number;
 
-const app: Express = express();
+  constructor(controllers, port) {
+    this.app = express();
+    this.port = port;
 
-const port = process.env.PORT || 5000;
+    this.initializeMiddlewares();
+    this.initializeControllers(controllers);
+  }
 
-app.get('/', (_req: Request, res: Response) => {
-  res.send('ExpressJS has worked successfuly!');
-});
+  private initializeMiddlewares() {
+    this.app.use(bodyParser.json());
+  }
 
-app.get('/books', (_req: Request, res: Response) => {
-  res.send(booksData);
-});
+  private initializeControllers(controllers) {
+    controllers.forEach((controller) => {
+      this.app.use('/', controller.router);
+    });
+  }
 
-app.get('/users', (_req: Request, res: Response) => {
-  res.send(users);
-});
+  public listen() {
+    this.app.listen(this.port, () => {
+      console.log(`App listening on the port ${this.port}`);
+    });
+  }
+}
 
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+export default App;
