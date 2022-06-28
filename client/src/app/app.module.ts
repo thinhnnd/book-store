@@ -8,7 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { LoginComponent } from './login/login.component';
 import { SecondaryLayoutComponent } from './secondary-layout/seconday-layout.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
@@ -26,6 +26,9 @@ import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BookListComponent } from './book-list/book-list.component';
+import { NgbdSortableHeader } from './book-list/sortable.directive';
 
 @NgModule({
   declarations: [
@@ -36,10 +39,13 @@ import { RegisterComponent } from './register/register.component';
     ContactUsComponent,
     LoginComponent,
     RegisterComponent,
+    BookListComponent,
+    NgbdSortableHeader,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     MdbAccordionModule,
     MdbCarouselModule,
@@ -57,6 +63,7 @@ import { RegisterComponent } from './register/register.component';
     MdbTooltipModule,
     MdbValidationModule,
     BrowserAnimationsModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

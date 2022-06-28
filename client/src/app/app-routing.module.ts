@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SecondaryLayoutComponent } from './secondary-layout/seconday-layout.component';
 import { RegisterComponent } from './register/register.component';
+import { BookListComponent } from './book-list/book-list.component';
 
 const routes: Routes = [
   // basic routes
@@ -15,6 +16,7 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'contact-us', component: ContactUsComponent },
+      { path: 'books', component: BookListComponent },
     ],
   },
   // login route
