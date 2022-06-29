@@ -1,13 +1,24 @@
 import MockUtil from '../utils/mock.util';
-import { Book } from '../models/book.model';
-import { injectable } from 'inversify';
+import { Book } from './models/book.model';
+import { inject, injectable } from 'inversify';
+import TYPES from '../common/type.const';
+import { MongoDBClient } from '../utils/mongodb/client';
 
 @injectable()
 export class BookService {
-  constructor() {}
+  private mongoClient: MongoDBClient;
+  constructor(@inject(TYPES.MongoDBClient) mongoClient: MongoDBClient) {
+    this.mongoClient = mongoClient;
+  }
 
   async getAllBooks(): Promise<Book[]> {
-    return MockUtil.BOOKLIST_DATA;
+    return new Promise<Book[]>((resolve, reject) => {
+      this.mongoClient.find('books', {}, (error, data: Book[]) => {
+        if (error) reject(error);
+
+        resolve(data);
+      });
+    });
   }
 
   async getBookByIds(id: string): Promise<Book> {

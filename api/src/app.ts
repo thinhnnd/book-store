@@ -8,6 +8,7 @@ import helmet from 'helmet';
 import { BookService } from './books/book.services';
 import TYPES from './common/type.const';
 import './books/book.controller';
+import { MongoDBClient } from './utils/mongodb/client';
 
 class App {
   public app: express.Application;
@@ -33,6 +34,7 @@ class App {
   private initializeContainer() {
     // this.container.bind();
     this.container.bind<BookService>(TYPES.BookService).to(BookService);
+    this.container.bind<MongoDBClient>(TYPES.MongoDBClient).to(MongoDBClient);
   }
 
   // private initializeMiddlewares() {

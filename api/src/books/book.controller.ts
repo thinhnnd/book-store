@@ -1,18 +1,20 @@
 import * as express from 'express';
 import { Request, Response, Router } from 'express';
 import { BookService } from './book.services';
-import { Book } from '../models/book.model';
+import { Book } from './models/book.model';
 import { controller, httpGet, httpPost } from 'inversify-express-utils';
+import { inject } from 'inversify';
+import TYPES from '../common/type.const';
 
 @controller('/books')
 class BookController {
   public router: Router;
   private bookService: BookService;
 
-  constructor() {
+  constructor(@inject(TYPES.BookService) bookService: BookService) {
     this.router = express.Router();
-    this.bookService = new BookService();
     this.initializeRoutes();
+    this.bookService = bookService;
   }
 
   public initializeRoutes() {}

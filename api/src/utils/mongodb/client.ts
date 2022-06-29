@@ -1,4 +1,4 @@
-import { Db, ObjectId, ObjectID } from 'mongodb';
+import { Db, Document, ObjectId, ObjectID } from 'mongodb';
 import { injectable } from 'inversify';
 import { MongoDBConnection } from './connection';
 

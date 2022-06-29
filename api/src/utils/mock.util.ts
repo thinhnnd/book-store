@@ -1,11 +1,11 @@
-import { Book } from '../models/book.model';
+import { Book } from '../books/models/book.model';
 import { Category } from '../common/category.enum';
 import { UserType } from '../common/user-type.enum';
 import { User } from '../models/user.model';
 export class MockUtil {
   static BOOKLIST_DATA: Book[] = [
     {
-      id: '1',
+      _id: '1',
       title: 'Thiên Nga Đen (Tái Bản 2020)',
       image:
         'https://salt.tikicdn.com/cache/400x400/ts/product/c7/a2/3a/c9e6eaa17656191e9fdd8febea6dd87c.jpg.webp',
@@ -17,7 +17,7 @@ export class MockUtil {
         Tinh tế, táo bạo nhưng không kém phần thú vị, Thiên Nga Đen chắc chắn là cuốn sách không thể bỏ qua cho những ai đam mê hiểu biết. Và cuốn sách này, bản thân nó cũng chính là một thiên nga đen…`,
     },
     {
-      id: '2',
+      _id: '2',
       title: 'Sức Mạnh Của Thói Quen (Tái Bản)',
       image:
         'https://salt.tikicdn.com/cache/400x400/ts/product/a9/11/cd/8db57c8fd3685e41109da91542dae1d5.jpg',
@@ -29,7 +29,7 @@ export class MockUtil {
         Chìa khoá quan trọng nhất để mở cánh cửa thành công chính là sự kết hợp nhuần nhuyễn những thói quen tốt với nhau. Câu hỏi đặt ra là làm thế nào để phân biệt thói quen tốt và thói quen xấu? Thói quen có nằm trong tầm kiểm soát của chúng ta hay không? Với ba phần khá đầy đặn, “Sức mạnh của thói quen” cho bạn cái nhìn toàn diện không chỉ về thói quen cá nhân, của tổ chức mà còn là của toàn xã hội, cùng với lời khuyên để vận dụng các thói quen đó. Muốn thay đổi thói quen, bạn phải phá vỡ những việc làm tuỳ hứng hàng ngày – câu “thần chú” này chỉ đường cho bạn tới thành công.`,
     },
     {
-      id: '3',
+      _id: '3',
       title: 'Book 2',
       image:
         'https://salt.tikicdn.com/cache/400x400/ts/product/a9/11/cd/8db57c8fd3685e41109da91542dae1d5.jpg',
