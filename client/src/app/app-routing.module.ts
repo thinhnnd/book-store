@@ -8,6 +8,7 @@ import { SecondaryLayoutComponent } from './secondary-layout/seconday-layout.com
 import { RegisterComponent } from './register/register.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { BookDetailComponent } from './book-details/book-detail.component';
+import { AddBookComponent } from './add-book/add-book.component';
 
 const routes: Routes = [
   // basic routes
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'contact-us', component: ContactUsComponent },
       { path: 'books', component: BookListComponent },
+      { path: 'books/new', component: AddBookComponent },
       { path: 'books/:id', component: BookDetailComponent },
     ],
   },

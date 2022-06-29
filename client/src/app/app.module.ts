@@ -9,21 +9,6 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { LoginComponent } from './login/login.component';
 import { SecondaryLayoutComponent } from './secondary-layout/seconday-layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
-import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
-import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
-import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
-import { MdbDropdownModule } from 'mdb-angular-ui-kit/dropdown';
-import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
-import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
-import { MdbPopoverModule } from 'mdb-angular-ui-kit/popover';
-import { MdbRadioModule } from 'mdb-angular-ui-kit/radio';
-import { MdbRangeModule } from 'mdb-angular-ui-kit/range';
-import { MdbRippleModule } from 'mdb-angular-ui-kit/ripple';
-import { MdbScrollspyModule } from 'mdb-angular-ui-kit/scrollspy';
-import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
-import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
-import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -31,6 +16,7 @@ import { BookListComponent } from './book-list/book-list.component';
 import { NgbdSortableHeader } from './book-list/sortable.directive';
 import { BookDetailComponent } from './book-details/book-detail.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AddBookComponent } from './add-book/add-book.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     BookListComponent,
     BookDetailComponent,
     NgbdSortableHeader,
+    AddBookComponent,
   ],
   imports: [
     BrowserModule,
