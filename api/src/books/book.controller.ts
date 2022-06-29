@@ -2,7 +2,13 @@ import * as express from 'express';
 import { Request, Response, Router } from 'express';
 import { BookService } from './book.services';
 import { Book } from './models/book.model';
-import { controller, httpGet, httpPost } from 'inversify-express-utils';
+import {
+  controller,
+  httpDelete,
+  httpGet,
+  httpPost,
+  httpPut,
+} from 'inversify-express-utils';
 import { inject } from 'inversify';
 import TYPES from '../common/type.const';
 
@@ -21,27 +27,43 @@ class BookController {
 
   @httpGet('/')
   async getBooks(request: express.Request, response: express.Response) {
-    console.log('routing worked');
     const books = await this.bookService.getAllBooks();
-    console.log(books);
+    response.send(books);
+  }
+
+  @httpGet('/:id')
+  async getABook(request: express.Request, response: express.Response) {
+    const books = await this.bookService.getBookById(request.params.id);
     response.send(books);
   }
 
   @httpPost('/')
-  async createBook(request: Request, response: Response) {
+  async createABook(request: Request, response: Response) {
     const bookReq: Book = request.body;
     const book = await this.bookService.createBook(bookReq);
     response.send(book);
   }
 
-  async updateBook(request: Request, response: Response) {
-    let bookId = '';
+  @httpPut('/:id')
+  async updateABook(request: Request, response: Response) {
+    let bookId = request.params.id;
 
     if (bookId == null || undefined)
       response.status(404).send(`Invalid book id`);
 
     const bookReq: Book = request.body;
     const book = await this.bookService.updateBookById(bookId, bookReq);
+    response.send(book);
+  }
+
+  @httpDelete('/:id')
+  async deleteABook(request: Request, response: Response) {
+    let bookId = request.params.id;
+
+    if (bookId == null || undefined)
+      response.status(404).send(`Invalid book id`);
+
+    const book = await this.bookService.deleteABook(bookId);
     response.send(book);
   }
 }

@@ -21,15 +21,32 @@ export class BookService {
     });
   }
 
-  async getBookByIds(id: string): Promise<Book> {
-    return MockUtil.BOOKLIST_DATA[0];
+  async getBookById(id: string): Promise<Book> {
+    return new Promise<Book>((resolve, reject) => {
+      this.mongoClient.findOneById('books', id, (error, data: Book) => {
+        if (error) reject(error);
+        resolve(data);
+      });
+    });
   }
 
-  async createBook(Book): Promise<Book> {
-    return MockUtil.BOOKLIST_DATA[1];
+  async createBook(book: Book): Promise<Book> {
+    return new Promise<Book>((resolve, reject) => {
+      this.mongoClient.insert('books', book, (error, idResult: string) => {
+        if (error) reject(error);
+
+        const bookCreated = this.getBookById(idResult);
+        resolve(bookCreated);
+      });
+    });
   }
 
   async updateBookById(id: string, book: Book): Promise<Book> {
     return MockUtil.BOOKLIST_DATA[2];
+  }
+
+  async deleteABook(id: string): Promise<boolean> {
+    if (!id) return false;
+    return true;
   }
 }
