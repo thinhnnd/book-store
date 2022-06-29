@@ -2,9 +2,10 @@ import * as express from 'express';
 import { Request, Response, Router } from 'express';
 import { BookService } from './book.services';
 import { Book } from '../models/book.model';
+import { controller, httpGet, httpPost } from 'inversify-express-utils';
 
+@controller('/books')
 class BookController {
-  public path: string = '/books';
   public router: Router;
   private bookService: BookService;
 
@@ -14,11 +15,9 @@ class BookController {
     this.initializeRoutes();
   }
 
-  public initializeRoutes() {
-    this.router.get(this.path, this.getBooks.bind(this));
-    this.router.post(`${this.path}/:bookId`, this.createBook.bind(this));
-  }
+  public initializeRoutes() {}
 
+  @httpGet('/')
   async getBooks(request: express.Request, response: express.Response) {
     console.log('routing worked');
     const books = await this.bookService.getAllBooks();
@@ -26,6 +25,7 @@ class BookController {
     response.send(books);
   }
 
+  @httpPost('/')
   async createBook(request: Request, response: Response) {
     const bookReq: Book = request.body;
     const book = await this.bookService.createBook(bookReq);

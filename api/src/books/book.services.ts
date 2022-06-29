@@ -1,5 +1,8 @@
 import MockUtil from '../utils/mock.util';
 import { Book } from '../models/book.model';
+import { injectable } from 'inversify';
+
+@injectable()
 export class BookService {
   constructor() {}
 

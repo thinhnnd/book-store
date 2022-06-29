@@ -1,6 +1,7 @@
+import 'reflect-metadata';
 import App from './app';
 import BookController from './books/book.controller';
 
-const app = new App([new BookController()], 5000);
+const app = new App(5000);
 
-app.listen();
+app.start();
