@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from 'src/common/category.enum';
 import { IBook } from '../book-list/book.interface';
+import { BookDetailService } from './book-detail.service';
 
 @Component({
   template: 'app-book-detail',
@@ -13,7 +14,10 @@ export class BookDetailComponent implements OnInit {
 
   book: IBook;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private bookDetailService: BookDetailService
+  ) {
     this.id = '';
     this.book = {
       _id: '1',
@@ -30,5 +34,16 @@ export class BookDetailComponent implements OnInit {
   }
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
+    // this.route.queryParams.subscribe((params) => {
+    //   console.log(params); // { orderby: "price" }
+    //   this.id = params.id;
+    //   if
+    // });
+
+    if (this.id)
+      this.bookDetailService
+        .getABook(this.id)
+        .subscribe((book) => (this.book = book));
+    console.log('id ', this.id);
   }
 }
