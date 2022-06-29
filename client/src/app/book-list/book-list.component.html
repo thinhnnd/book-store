@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let book of books">
+            <tr *ngFor="let book of books" style="cursor: pointer;" [routerLink]="['/books/', book._id ]">
                 <th scope="row">{{ book._id }}</th>
                 <td>
                     <ngb-highlight [result]="book.title" [term]="bookService.searchTerm"></ngb-highlight>
