@@ -16,7 +16,7 @@ import { BookListComponent } from './book-list/book-list.component';
 import { NgbdSortableHeader } from './book-list/sortable.directive';
 import { BookDetailComponent } from './book-details/book-detail.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AddBookComponent } from './add-book/add-book.component';
+import { AddEditBookComponent } from './add-book/add-edit-book.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { AddBookComponent } from './add-book/add-book.component';
     BookListComponent,
     BookDetailComponent,
     NgbdSortableHeader,
-    AddBookComponent,
+    AddEditBookComponent,
   ],
   imports: [
     BrowserModule,
