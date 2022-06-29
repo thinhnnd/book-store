@@ -1,51 +1,55 @@
-<h4>Book list</h4>
-<p>Total book: <span *ngIf="total$">{{ books.length }}</span></p>
+<div class="content">
 
-<form>
-    <div class="mb-3 row">
-        <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
-        <div class="col-xs-3 col-sm-auto">
-            <input id="table-complete-search" type="text" class="form-control" name="searchTerm"
-                [(ngModel)]="bookService.searchTerm">
+    <h4>Book list</h4>
+    <p>Total book: <span *ngIf="total$">{{ books.length }}</span></p>
+
+    <form>
+        <div class="mb-3 row">
+            <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+            <div class="col-xs-3 col-sm-auto">
+                <input id="table-complete-search" type="text" class="form-control" name="searchTerm"
+                    [(ngModel)]="bookService.searchTerm">
+            </div>
+            <span class="col col-form-label" *ngIf="bookService.loading$ | async">Loading...</span>
         </div>
-        <span class="col col-form-label" *ngIf="bookService.loading$ | async">Loading...</span>
-    </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col" sortable="title">Title</th>
-                <th scope="col" sortable="category">Category</th>
-                <th scope="col" sortable="price">Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let book of books" style="cursor: pointer;" [routerLink]="['/books/', book._id ]">
-                <th scope="row">{{ book._id }}</th>
-                <td>
-                    <ngb-highlight [result]="book.title" [term]="bookService.searchTerm"></ngb-highlight>
-                </td>
-                <td>
-                    <ngb-highlight [result]="book.category" [term]="bookService.searchTerm"></ngb-highlight>
-                </td>
-                <td>
-                    <ngb-highlight [result]="book.price | number" [term]="bookService.searchTerm"></ngb-highlight>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" sortable="title">Title</th>
+                    <th scope="col" sortable="category">Category</th>
+                    <th scope="col" sortable="price">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let book of books" style="cursor: pointer;" [routerLink]="['/books/', book._id ]">
+                    <th scope="row">{{ book._id }}</th>
+                    <td>
+                        <ngb-highlight [result]="book.title" [term]="bookService.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="book.category" [term]="bookService.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="book.price | number" [term]="bookService.searchTerm"></ngb-highlight>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-    <div class="d-flex justify-content-between p-2">
-        <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="bookService.page"
-            [pageSize]="bookService.pageSize">
-        </ngb-pagination>
+        <div class="d-flex justify-content-between p-2">
+            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="bookService.page"
+                [pageSize]="bookService.pageSize">
+            </ngb-pagination>
 
-        <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="bookService.pageSize">
-            <option [ngValue]="10">10 items per page</option>
-            <option [ngValue]="20">20 items per page</option>
-            <option [ngValue]="50">50 items per page</option>
-        </select>
-    </div>
+            <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="bookService.pageSize">
+                <option [ngValue]="10">10 items per page</option>
+                <option [ngValue]="20">20 items per page</option>
+                <option [ngValue]="50">50 items per page</option>
+            </select>
+        </div>
 
-</form>
+    </form>
+
+</div>
