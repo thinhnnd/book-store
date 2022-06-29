@@ -2,50 +2,28 @@
 import { Injectable, PipeTransform } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-
-import { Country, IBook } from './book.interface';
-import { BOOKS, COUNTRIES } from './mocks';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IBook } from './book.interface';
+import { BOOKS } from './mocks';
 import { DecimalPipe } from '@angular/common';
-import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
-import { SortColumn, SortDirection } from './sortable.directive';
-
-interface SearchResult {
-  //   countries: Country[];
-  books: IBook[];
-  total: number;
-}
+import {
+  catchError,
+  debounceTime,
+  delay,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+import { environment } from './../../environments/environment';
 
 interface State {
   page: number;
   pageSize: number;
   searchTerm: string;
-  sortColumn: SortColumn;
-  sortDirection: SortDirection;
-}
-
-const compare = (v1: string | number, v2: string | number) =>
-  v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
-
-function sort(books: IBook[], column: SortColumn, direction: string): IBook[] {
-  if (direction === '' || column === '') {
-    return books;
-  } else {
-    return [...books].sort((a, b) => {
-      const res = compare(a[column], b[column]);
-      return direction === 'asc' ? res : -res;
-    });
-  }
-}
-
-function matches(book: IBook, term: string, pipe: PipeTransform) {
-  return (
-    book.title.toLowerCase().includes(term.toLowerCase()) ||
-    book.description.toLowerCase().includes(term.toLowerCase())
-  );
 }
 
 @Injectable({ providedIn: 'root' })
 export class BookService {
+  private booksUrl = environment.apiUrl + '/books';
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
   private _books$ = new BehaviorSubject<IBook[]>([]);
@@ -55,25 +33,26 @@ export class BookService {
     page: 1,
     pageSize: 10,
     searchTerm: '',
-    sortColumn: '',
-    sortDirection: '',
   };
 
-  constructor(private pipe: DecimalPipe) {
-    this._search$
-      .pipe(
-        tap(() => this._loading$.next(true)),
-        debounceTime(200),
-        switchMap(() => this._search()),
-        delay(200),
-        tap(() => this._loading$.next(false))
-      )
-      .subscribe((result) => {
-        this._books$.next(result.books);
-        this._total$.next(result.total);
-      });
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
-    this._search$.next();
+  constructor(private httpClient: HttpClient) {
+    // this._search$
+    //   .pipe(
+    //     tap(() => this._loading$.next(true)),
+    //     debounceTime(200),
+    //     switchMap(() => this._search()),
+    //     delay(200),
+    //     tap(() => this._loading$.next(false))
+    //   )
+    //   .subscribe((result) => {
+    //     this._books$.next(result.books);
+    //     this._total$.next(result.total);
+    //   });
+    // this._search$.next();
   }
 
   get books$() {
@@ -104,34 +83,58 @@ export class BookService {
   set searchTerm(searchTerm: string) {
     this._set({ searchTerm });
   }
-  set sortColumn(sortColumn: SortColumn) {
-    this._set({ sortColumn });
-  }
-  set sortDirection(sortDirection: SortDirection) {
-    this._set({ sortDirection });
-  }
+  // set sortColumn(sortColumn: SortColumn) {
+  //   this._set({ sortColumn });
+  // }
+  // set sortDirection(sortDirection: SortDirection) {
+  //   this._set({ sortDirection });
+  // }
 
   private _set(patch: Partial<State>) {
     Object.assign(this._state, patch);
     this._search$.next();
   }
 
-  private _search(): Observable<SearchResult> {
-    const { sortColumn, sortDirection, pageSize, page, searchTerm } =
-      this._state;
+  // private _search(): Observable<SearchResult> {
+  //   const { sortColumn, sortDirection, pageSize, page, searchTerm } =
+  //     this._state;
 
-    // 1. sort
-    let books = sort(BOOKS, sortColumn, sortDirection);
+  //   // 1. sort
+  //   let books = sort(BOOKS, sortColumn, sortDirection);
 
-    // 2. filter
-    books = books.filter((book) => matches(book, searchTerm, this.pipe));
-    const total = books.length;
+  //   // 2. filter
+  //   books = books.filter((book) => matches(book, searchTerm, this.pipe));
+  //   const total = books.length;
 
-    // 3. paginate
-    books = books.slice(
-      (page - 1) * pageSize,
-      (page - 1) * pageSize + pageSize
-    );
-    return of({ books, total });
+  //   // 3. paginate
+  //   books = books.slice(
+  //     (page - 1) * pageSize,
+  //     (page - 1) * pageSize + pageSize
+  //   );
+  //   return of({ books, total });
+  // }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
+  public getBooks(): Observable<IBook[]> {
+    return this.httpClient
+      .get<IBook[]>(this.booksUrl)
+      .pipe(catchError(this.handleError<IBook[]>('getHeroes', [])));
+  }
+
+  /** Log a HeroService message with the MessageService */
+  private log(message: string) {
+    console.log(`HeroService: ${message}`);
   }
 }

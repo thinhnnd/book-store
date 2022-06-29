@@ -25,6 +25,17 @@ export class MongoDBClient {
       });
   }
 
+  // public findV2<T>(collection: string, filter: Object): void {
+  //   this.db
+  //     .collection(collection)
+  //     .find(filter)
+  //     .toArray()
+  //     .then((find) => {
+  //       return find.map(item => new T(item)));
+  //     })
+  //     .catch((err) => err);
+  // }
+
   public findOneById(
     collection: string,
     objectId: string,
@@ -45,7 +56,7 @@ export class MongoDBClient {
     result: (error, data) => void,
   ): void {
     this.db.collection(collection).insertOne(model, (error, insert) => {
-      return result(error, insert.insertedId);
+      return result(error, insert);
     });
   }
 

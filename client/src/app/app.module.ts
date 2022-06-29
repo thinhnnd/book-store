@@ -30,6 +30,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BookListComponent } from './book-list/book-list.component';
 import { NgbdSortableHeader } from './book-list/sortable.directive';
 import { BookDetailComponent } from './book-details/book-detail.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { BookDetailComponent } from './book-details/book-detail.component';
     MdbValidationModule,
     BrowserAnimationsModule,
     NgbModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,15 +1,7 @@
 import { Category } from 'src/common/category.enum';
 
-export interface Country {
-  id: number;
-  name: string;
-  flag: string;
-  area: number;
-  population: number;
-}
-
 export interface IBook {
-  id: number;
+  _id: string;
   title: string;
   image: string;
   category: Category;

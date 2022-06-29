@@ -5,6 +5,7 @@ import { Container } from 'inversify';
 import { makeLoggerMiddleware } from 'inversify-logger-middleware';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import helmet from 'helmet';
+import * as cors from 'cors';
 import { BookService } from './books/book.services';
 import TYPES from './common/type.const';
 import './books/book.controller';
@@ -58,6 +59,10 @@ class App {
     server.setConfig((app) => {
       app.use(bodyParser.json());
       app.use(helmet());
+      const corsOptions = {
+        origin: '*',
+      };
+      app.use(cors(corsOptions));
     });
 
     this.app = server.build();

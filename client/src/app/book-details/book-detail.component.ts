@@ -16,7 +16,7 @@ export class BookDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute) {
     this.id = '';
     this.book = {
-      id: 1,
+      _id: '1',
       title: 'Quà tặng cuộc sống',
       category: Category.drama,
       price: 6.99,
