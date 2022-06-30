@@ -58,7 +58,7 @@ export class MongoDBClient {
   ): void {
     this.db
       .collection(collection)
-      .find({ _id: objectId })
+      .find({ _id: new ObjectId(objectId) })
       .limit(1)
       .toArray((error, find) => {
         return result(error, find[0]);
@@ -83,10 +83,13 @@ export class MongoDBClient {
     model: T,
     result: (error, data) => void,
   ): void {
+    console.log('model', model);
     this.db
       .collection(collection)
-      .updateOne({ _id: objectId }, { $set: { ...model } }, (error, update) =>
-        result(error, update),
+      .updateOne(
+        { _id: new ObjectId(objectId) },
+        { $set: model },
+        (error, update) => result(error, update),
       );
   }
 

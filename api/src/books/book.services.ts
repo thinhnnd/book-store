@@ -68,9 +68,10 @@ export class BookService {
 
   async updateBookById(id: string, book: Book): Promise<Book> {
     return new Promise<Book>((resolve, reject) => {
+      console.log('book', book);
       this.mongoClient.update('books', id, book, (error, result) => {
         if (error) reject(error);
-
+        console.log('result', result);
         const { acknowledged } = result;
         if (!acknowledged)
           throw new Error(`An error ocurr when update item with _id: ${id}`);

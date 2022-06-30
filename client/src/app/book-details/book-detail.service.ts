@@ -50,7 +50,6 @@ export class BookDetailService {
       .pipe(catchError(this.handleError<IBook>('get a book')));
   }
 
-  /** Log a HeroService message with the MessageService */
   private log(message: string) {
     console.log(`Book Detail: ${message}`);
   }
