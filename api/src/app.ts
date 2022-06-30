@@ -9,7 +9,10 @@ import * as cors from 'cors';
 import { BookService } from './books/book.services';
 import TYPES from './common/type.const';
 import './books/book.controller';
+import './auth/auth.controller';
 import { MongoDBClient } from './utils/mongodb/client';
+import { AuthService } from './auth/auth.service';
+import { JwtService } from './auth/jwt.service';
 
 class App {
   public app: express.Application;
@@ -36,6 +39,8 @@ class App {
     // this.container.bind();
     this.container.bind<BookService>(TYPES.BookService).to(BookService);
     this.container.bind<MongoDBClient>(TYPES.MongoDBClient).to(MongoDBClient);
+    this.container.bind<JwtService>(TYPES.JwtService).to(JwtService);
+    this.container.bind<AuthService>(TYPES.AuthService).to(AuthService);
   }
 
   // private initializeMiddlewares() {
