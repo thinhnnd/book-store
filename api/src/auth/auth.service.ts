@@ -5,12 +5,15 @@ import { JwtService } from './jwt.service';
 import TYPES from '../common/type.const';
 import { MongoDBClient } from '../utils/mongodb/client';
 import { AuthResponse } from './models/auth-response.model';
+import { UserReg } from './models/user-reg.model';
+import { UserService } from '../users/models/user.service';
 
 @injectable()
 export class AuthService {
   constructor(
     @inject(TYPES.MongoDBClient) private mongoClient: MongoDBClient,
     @inject(TYPES.JwtService) private jwtService: JwtService,
+    @inject(TYPES.UserService) private userService: UserService,
   ) {}
 
   checkCredential(auth: Auth) {
@@ -37,5 +40,7 @@ export class AuthService {
     return this.jwtService.signToken(authResponse);
   }
 
-  register() {}
+  public async register(userReg: UserReg) {
+    return this.userService.createUser(userReg);
+  }
 }

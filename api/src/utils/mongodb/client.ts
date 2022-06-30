@@ -73,7 +73,7 @@ export class MongoDBClient {
     this.db
       .collection(collection)
       .insertOne(model, (error, insert: InsertOneResult) => {
-        return result(error, insert.insertedId);
+        return result(error, insert);
       });
   }
 

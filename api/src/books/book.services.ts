@@ -57,10 +57,10 @@ export class BookService {
 
   async createBook(book: Book): Promise<Book> {
     return new Promise<Book>((resolve, reject) => {
-      this.mongoClient.insertOne('books', book, (error, idResult) => {
+      this.mongoClient.insertOne('books', book, (error, result) => {
         if (error) reject(error);
 
-        const bookCreated = this.getBookById(idResult);
+        const bookCreated = this.getBookById(result.insertedId);
         resolve(bookCreated);
       });
     });
