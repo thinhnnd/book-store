@@ -121,25 +121,6 @@ export class BookService {
     this._getBooks$.next();
   }
 
-  // private _search(): Observable<SearchResult> {
-  //   const { sortColumn, sortDirection, pageSize, page, searchTerm } =
-  //     this._state;
-
-  //   // 1. sort
-  //   let books = sort(BOOKS, sortColumn, sortDirection);
-
-  //   // 2. filter
-  //   books = books.filter((book) => matches(book, searchTerm, this.pipe));
-  //   const total = books.length;
-
-  //   // 3. paginate
-  //   books = books.slice(
-  //     (page - 1) * pageSize,
-  //     (page - 1) * pageSize + pageSize
-  //   );
-  //   return of({ books, total });
-  // }
-
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
@@ -168,27 +149,9 @@ export class BookService {
           })
         )
       );
-
-    //   const { sortColumn, sortDirection, pageSize, page, searchTerm } =
-    //     this._state;
-
-    //   // 1. sort
-    //   let books = sort(BOOKS, sortColumn, sortDirection);
-
-    //   // 2. filter
-    //   books = books.filter((book) => matches(book, searchTerm, this.pipe));
-    //   const total = books.length;
-
-    //   // 3. paginate
-    //   books = books.slice(
-    //     (page - 1) * pageSize,
-    //     (page - 1) * pageSize + pageSize
-    //   );
-    //   return of({ books, total });
   }
 
-  /** Log a HeroService message with the MessageService */
   private log(message: string) {
-    console.log(`HeroService: ${message}`);
+    console.log(`BookService: ${message}`);
   }
 }

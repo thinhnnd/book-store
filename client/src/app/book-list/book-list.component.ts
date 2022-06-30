@@ -39,9 +39,9 @@ export class BookListComponent implements OnInit {
     this.total$ = bookService.total$;
   }
 
-  getBooks(): void {
-    this.bookService.getBooks().subscribe((paginationData) => {
-      this.paginationData = paginationData;
-    });
-  }
+  // getBooks(): void {
+  //   this.bookService.getBooks().subscribe((paginationData) => {
+  //     this.paginationData = paginationData;
+  //   });
+  // }
 }
