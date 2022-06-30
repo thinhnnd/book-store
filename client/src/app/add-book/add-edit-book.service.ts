@@ -16,4 +16,8 @@ export class AddEditBookService {
   create(book: IBook) {
     return this.http.post(`${environment.apiUrl}${this.path}`, book);
   }
+
+  update(id: string, book: IBook) {
+    return this.http.put(`${environment.apiUrl}${this.path}/${id}`, book);
+  }
 }

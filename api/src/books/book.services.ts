@@ -42,7 +42,14 @@ export class BookService {
   }
 
   async updateBookById(id: string, book: Book): Promise<Book> {
-    return MockUtil.BOOKLIST_DATA[2];
+    return new Promise<Book>((resolve, reject) => {
+      this.mongoClient.update('books', id, book, (error, idResult) => {
+        if (error) reject(error);
+
+        const bookCreated = this.getBookById(idResult);
+        resolve(bookCreated);
+      });
+    });
   }
 
   async deleteABook(id: string): Promise<boolean> {

@@ -70,10 +70,8 @@ export class MongoDBClient {
   ): void {
     this.db
       .collection(collection)
-      .updateOne(
-        { _id: new ObjectID(objectId) },
-        { $set: model },
-        (error, update) => result(error, model),
+      .updateOne({ _id: objectId }, { $set: model }, (error, update) =>
+        result(error, update.upsertedId),
       );
   }
 
