@@ -1,7 +1,7 @@
 <div class="content">
 
     <h4>Book list</h4>
-    <p>Total book: <span *ngIf="total$">{{ books.length }}</span></p>
+    <p>Total book: <span *ngIf="total$">{{ total$ | async }}</span></p>
 
     <form>
         <div class="mb-3 row">
@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let book of books" style="cursor: pointer;" [routerLink]="['/books/', book._id ]">
+                <tr *ngFor="let book of books$ | async" style="cursor: pointer;" [routerLink]="['/books/', book._id ]">
                     <th scope="row">{{ book._id }}</th>
                     <td>
                         <ngb-highlight [result]="book.title" [term]="bookService.searchTerm"></ngb-highlight>
@@ -39,7 +39,7 @@
         </table>
 
         <div class="d-flex justify-content-between p-2">
-            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="bookService.page"
+            <ngb-pagination [collectionSize]="(paginationData.total)!" [(page)]="bookService.pageNum"
                 [pageSize]="bookService.pageSize">
             </ngb-pagination>
 

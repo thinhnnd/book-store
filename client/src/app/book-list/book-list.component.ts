@@ -5,6 +5,7 @@ import { IBook } from './book.interface';
 import { BookService } from './book.service';
 import { BOOKS } from './mocks';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
+import { Pagination } from '../../models/pagination';
 
 @Component({
   template: 'app-book-list',
@@ -13,22 +14,34 @@ import { NgbdSortableHeader, SortEvent } from './sortable.directive';
   providers: [BookService, DecimalPipe],
 })
 export class BookListComponent implements OnInit {
+  paginationData$: Observable<Pagination<IBook[]>>;
+
+  ngOnInit(): void {
+    // this.getBooks();
+  }
+  public books: IBook[] = BOOKS;
+  public paginationData: Pagination<IBook[]>;
+
   books$: Observable<IBook[]>;
   total$: Observable<number>;
 
-  ngOnInit(): void {
-    this.getHeroes();
-  }
-  public books: IBook[] = BOOKS;
   // @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader> =
   //   new QueryList<NgbdSortableHeader>();
 
   constructor(public bookService: BookService) {
+    this.paginationData$ = bookService.paginationData$;
+    this.paginationData = {
+      total: 0,
+      data: [],
+    };
+
     this.books$ = bookService.books$;
     this.total$ = bookService.total$;
   }
 
-  getHeroes(): void {
-    this.bookService.getBooks().subscribe((books) => (this.books = books));
+  getBooks(): void {
+    this.bookService.getBooks().subscribe((paginationData) => {
+      this.paginationData = paginationData;
+    });
   }
 }
