@@ -10,7 +10,7 @@ import { BookDetailService } from './book-detail.service';
   styleUrls: ['./book-detail.component.scss'],
 })
 export class BookDetailComponent implements OnInit {
-  id: string | null;
+  _id: string | null;
 
   book: IBook;
 
@@ -18,7 +18,7 @@ export class BookDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private bookDetailService: BookDetailService
   ) {
-    this.id = '';
+    this._id = '';
     this.book = {
       _id: '1',
       title: 'Quà tặng cuộc sống',
@@ -33,17 +33,16 @@ export class BookDetailComponent implements OnInit {
     };
   }
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this._id = this.route.snapshot.paramMap.get('_id');
     // this.route.queryParams.subscribe((params) => {
     //   console.log(params); // { orderby: "price" }
     //   this.id = params.id;
     //   if
     // });
 
-    if (this.id)
+    if (this._id)
       this.bookDetailService
-        .getABook(this.id)
+        .getABook(this._id)
         .subscribe((book) => (this.book = book));
-    console.log('id ', this.id);
   }
 }
