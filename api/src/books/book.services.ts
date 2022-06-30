@@ -32,7 +32,7 @@ export class BookService {
 
   async createBook(book: Book): Promise<Book> {
     return new Promise<Book>((resolve, reject) => {
-      this.mongoClient.insert('books', book, (error, idResult: string) => {
+      this.mongoClient.insertOne('books', book, (error, idResult) => {
         if (error) reject(error);
 
         const bookCreated = this.getBookById(idResult);

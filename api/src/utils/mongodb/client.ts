@@ -1,4 +1,4 @@
-import { Db, Document, ObjectId, ObjectID } from 'mongodb';
+import { Db, Document, InsertOneResult, ObjectId, ObjectID } from 'mongodb';
 import { injectable } from 'inversify';
 import { MongoDBConnection } from './connection';
 
@@ -50,14 +50,16 @@ export class MongoDBClient {
       });
   }
 
-  public insert<T>(
+  public insertOne<T>(
     collection: string,
     model: T,
     result: (error, data) => void,
   ): void {
-    this.db.collection(collection).insertOne(model, (error, insert) => {
-      return result(error, insert);
-    });
+    this.db
+      .collection(collection)
+      .insertOne(model, (error, insert: InsertOneResult) => {
+        return result(error, insert.insertedId);
+      });
   }
 
   public update<T>(
