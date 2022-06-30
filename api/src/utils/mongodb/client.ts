@@ -23,7 +23,7 @@ export class MongoDBClient {
 
     if (limit != null) {
       query.limit(limit);
-      !skip ? (skip = 1) : skip;
+      !skip ? (skip = 0) : skip;
 
       query.skip(skip);
     }
@@ -58,7 +58,7 @@ export class MongoDBClient {
   ): void {
     this.db
       .collection(collection)
-      .find({ _id: new ObjectId(objectId) })
+      .find({ _id: objectId })
       .limit(1)
       .toArray((error, find) => {
         return result(error, find[0]);
@@ -85,8 +85,8 @@ export class MongoDBClient {
   ): void {
     this.db
       .collection(collection)
-      .updateOne({ _id: objectId }, { $set: model }, (error, update) =>
-        result(error, update.upsertedId),
+      .updateOne({ _id: objectId }, { $set: { ...model } }, (error, update) =>
+        result(error, update),
       );
   }
 

@@ -138,7 +138,7 @@ export class BookService {
     const { pageSize, pageNum, searchTerm } = this._state;
     return this.httpClient
       .get<Pagination<IBook[]>>(
-        `${this.booksUrl}?limit=${pageSize}&pageNum=${pageNum}`
+        `${this.booksUrl}?limit=${pageSize}&pageNum=${(pageNum - 1) * pageSize}`
       )
 
       .pipe(
