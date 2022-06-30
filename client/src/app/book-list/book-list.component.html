@@ -39,7 +39,7 @@
         </table>
 
         <div class="d-flex justify-content-between p-2">
-            <ngb-pagination [collectionSize]="(paginationData.total)!" [(page)]="bookService.pageNum"
+            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="bookService.pageNum"
                 [pageSize]="bookService.pageSize">
             </ngb-pagination>
 

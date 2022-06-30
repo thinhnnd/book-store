@@ -72,6 +72,8 @@ export class BookService {
         this._books$.next(result.data);
         this._total$.next(result.total);
       });
+
+    this._getBooks$.next();
   }
 
   get paginationData$() {
