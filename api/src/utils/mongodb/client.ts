@@ -15,14 +15,25 @@ export class MongoDBClient {
   public find(
     collection: string,
     filter: Object,
+    limit: number,
+    skip: number,
     result: (error, data) => void,
   ): void {
-    this.db
-      .collection(collection)
-      .find(filter)
-      .toArray((error, find) => {
-        return result(error, find);
-      });
+    let query = this.db.collection(collection).find(filter);
+
+    if (limit != null) {
+      query.limit(limit);
+      !skip ? (skip = 1) : skip;
+
+      query.skip(skip);
+    }
+
+    // return query.toArray() as Book[];
+    this.db.collection(collection).find(filter);
+
+    query.toArray((error, find) => {
+      return result(error, find);
+    });
   }
 
   // public findV2<T>(collection: string, filter: Object): void {
@@ -35,6 +46,10 @@ export class MongoDBClient {
   //     })
   //     .catch((err) => err);
   // }
+
+  public count(collection: string): Promise<number> {
+    return this.db.collection(collection).countDocuments();
+  }
 
   public findOneById(
     collection: string,

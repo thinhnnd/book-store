@@ -27,7 +27,10 @@ class BookController {
 
   @httpGet('/')
   async getBooks(request: express.Request, response: express.Response) {
-    const books = await this.bookService.getAllBooks();
+    const { limit, pageNum } = request.query;
+    let _limit = parseInt(limit?.toString()) || null;
+    let _pageNum = parseInt(pageNum?.toString()) || null;
+    const books = await this.bookService.getBooks(_pageNum, _limit);
     response.send(books);
   }
 

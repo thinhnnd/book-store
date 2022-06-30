@@ -3,6 +3,8 @@ import { Book } from './models/book.model';
 import { inject, injectable } from 'inversify';
 import TYPES from '../common/type.const';
 import { MongoDBClient } from '../utils/mongodb/client';
+import { FindOptions } from 'mongodb';
+import { Pagination } from './models/pagination';
 
 @injectable()
 export class BookService {
@@ -11,13 +13,36 @@ export class BookService {
     this.mongoClient = mongoClient;
   }
 
-  async getAllBooks(): Promise<Book[]> {
-    return new Promise<Book[]>((resolve, reject) => {
-      this.mongoClient.find('books', {}, (error, data: Book[]) => {
-        if (error) reject(error);
+  // async getAllBooks(): Promise<Book[]> {
+  //   return new Promise<Book[]>((resolve, reject) => {
+  //     this.mongoClient.find('books', {}, (error, data: Book[]) => {
+  //       if (error) reject(error);
 
-        resolve(data);
-      });
+  //       resolve(data);
+  //     });
+  //   });
+  // }
+
+  async getBooks(
+    pageNum: number = 1,
+    limit: number = 50,
+  ): Promise<Pagination<Book[]>> {
+    return new Promise<Pagination<Book[]>>((resolve, reject) => {
+      this.mongoClient.find(
+        'books',
+        {},
+        limit,
+        pageNum,
+        async (error, data: Book[]) => {
+          if (error) reject(error);
+          let total = await this.mongoClient.count('books');
+          let result: Pagination<Book[]> = new Pagination<Book[]>();
+          result.data = data;
+          result.total = total;
+
+          resolve(result);
+        },
+      );
     });
   }
 
