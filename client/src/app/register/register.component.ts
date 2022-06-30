@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  loginForm: FormGroup;
+  registerForm: FormGroup;
   submitted = false;
   returnUrl: string;
 
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {
     this.returnUrl = '';
-    this.loginForm = new FormGroup({
+    this.registerForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       fistName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.minLength(6),
       ]),
-      passwordRetyped: new FormControl('', [
+      repeatPassword: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
       ]),
@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
   }
 
   get f() {
-    return this.loginForm.controls;
+    return this.registerForm.controls;
   }
 
   ngOnInit(): void {
@@ -50,9 +50,9 @@ export class RegisterComponent implements OnInit {
     // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  onLogin() {
+  onSubmit() {
     this.submitted = true;
     console.log('submited');
-    console.log(this.loginForm);
+    console.log(this.registerForm);
   }
 }

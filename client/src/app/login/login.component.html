@@ -2,17 +2,19 @@
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
         <h1 class="h3 mb-3 fw-normal">Login</h1>
         <div class="form-floating">
-            <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@example.com">
+            <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@example.com"
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
             <label for="email">Email</label>
-            <div *ngIf="submitted && f['email'].invalid" class="alert alert-danger">
+            <div *ngIf="submitted && f['email'].invalid" class="invalid-feedback">
                 <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
                 <div *ngIf="f['email'].errors && f['email'].errors['email']">Please, enter valid email address.</div>
             </div>
         </div>
         <div class="form-floating">
-            <input formControlName="password" type="password" class="form-control" id="password" placeholder="Password">
+            <input formControlName="password" type="password" class="form-control" id="password" placeholder="Password"
+                [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
             <label for="password">Password</label>
-            <div *ngIf="submitted && f['password'].invalid" class="alert alert-danger">
+            <div *ngIf="submitted && f['password'].invalid" class="invalid-feedback">
                 <div *ngIf="f['password'].errors && f['password'].errors['required']">Please, enter valid password.
                 </div>
                 <div *ngIf="f['password'].errors && f['password'].errors['minlength']">Password must be 6 characters

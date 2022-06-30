@@ -1,10 +1,11 @@
 <main class="form-signin">
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <h1 class="h3 mb-3 fw-normal">Register</h1>
         <div class="form-floating">
-            <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@example.com">
+            <input type="email" class="form-control" id="email" formControlName="email" placeholder="name@example.com"
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
             <label for="email">Email</label>
-            <div *ngIf="submitted && f['email'].invalid" class="alert alert-danger">
+            <div *ngIf="submitted && f['email'].invalid" class="invalid-feedback">
                 <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
                 <div *ngIf="f['email'].errors && f['email'].errors['email']">Please, enter valid email address.</div>
             </div>
@@ -14,7 +15,8 @@
         </div>
 
         <div class="form-floating">
-            <input type="text" class="form-control" id="fistName" formControlName="fistName" placeholder="">
+            <input type="text" class="form-control" id="fistName" formControlName="fistName" placeholder=""
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
             <label for="firstName">First Name</label>
             <!-- <div *ngIf="submitted && f['email'].invalid" class="alert alert-danger">
                         <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
@@ -26,7 +28,8 @@
         </div>
 
         <div class="form-floating">
-            <input formControlName="lastName" type="text" class="form-control" id="lastName" placeholder="">
+            <input formControlName="lastName" type="text" class="form-control" id="lastName" placeholder=""
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
             <label for="lastName">Last Name</label>
             <!-- <div *ngIf="submitted && f['email'].invalid" class="alert alert-danger">
                     <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
@@ -37,9 +40,10 @@
         </div>
 
         <div class="form-floating">
-            <input formControlName="password" type="password" class="form-control" id="password" placeholder="Password">
+            <input formControlName="password" type="password" class="form-control" id="password" placeholder="Password"
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
             <label for="password">Password</label>
-            <div *ngIf="submitted && f['password'].invalid" class="alert alert-danger">
+            <div *ngIf="submitted && f['password'].invalid" class="invalid-feedback">
                 <div *ngIf="f['password'].errors && f['password'].errors['required']">Please, enter valid
                     password.
                 </div>
@@ -52,14 +56,14 @@
         </div>
 
         <div class="form-floating">
-            <input formControlName="passwordRetyped" type="password" class="form-control" id="passwordRetyped"
-                placeholder="Retyped Password">
-            <label for="passwordRetyped">Retyped Password</label>
-            <div *ngIf="submitted && f['passwordRetyped'].invalid" class="alert alert-danger">
-                <div *ngIf="f['passwordRetyped'].errors && f['passwordRetyped'].errors['required']">Please, enter valid
+            <input formControlName="repeatPassword" type="password" class="form-control" id="repeatPassword"
+                placeholder="Retyped Password" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+            <label for="repeatPassword">Retyped Password</label>
+            <div *ngIf="submitted && f['repeatPassword'].invalid" class="invalid-feedback">
+                <div *ngIf="f['repeatPassword'].errors && f['repeatPassword'].errors['required']">Please, enter valid
                     password.
                 </div>
-                <div *ngIf="f['passwordRetyped'].errors && f['passwordRetyped'].errors['minlength']">Password must be 6
+                <div *ngIf="f['repeatPassword'].errors && f['repeatPassword'].errors['minlength']">Password must be 6
                     characters
                 </div>
                 <div class="mb-3">
