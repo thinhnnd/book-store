@@ -61,4 +61,20 @@ export class CartService implements OnInit {
     if (!cart) this.cartList = [];
     else this.cartList = JSON.parse(cart) || [];
   }
+
+  buy() {
+    return this.http.post(`${environment.apiUrl}/orders/create`, this.cartList);
+  }
+
+  handleError(error: HttpErrorResponse) {
+    let msg = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      msg = error.error.message;
+    } else {
+      // server-side error
+      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(() => new Error(msg));
+  }
 }

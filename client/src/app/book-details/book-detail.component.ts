@@ -13,6 +13,7 @@ import { CartService } from '../cart/cart.service';
 export class BookDetailComponent implements OnInit {
   _id: string | null;
 
+  quantityToBuy: number = 1;
   book: IBook;
 
   constructor(
