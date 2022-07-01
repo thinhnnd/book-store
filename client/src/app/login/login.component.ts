@@ -6,6 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IAuth } from './models/auth.model';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     this.returnUrl = '';
     this.loginForm = new FormGroup({
@@ -48,8 +51,19 @@ export class LoginComponent implements OnInit {
     // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
+  getDataFromForm() {
+    let authData: IAuth = {
+      email: this.loginForm.controls['email'].value,
+      password: this.loginForm.controls['password'].value,
+    };
+
+    return authData;
+  }
+
   onLogin() {
     this.submitted = true;
+    let authData = this.getDataFromForm();
+    this.authService.login(authData);
     console.log('submited');
     console.log(this.loginForm);
   }

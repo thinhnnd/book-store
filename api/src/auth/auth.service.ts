@@ -37,7 +37,7 @@ export class AuthService {
     const res = await this.checkCredential(auth);
     if (!res) throw new Error('Invalid username or password');
     let authResponse = new AuthResponse(res);
-    return this.jwtService.signToken(authResponse);
+    return { accessToken: this.jwtService.signToken(authResponse) };
   }
 
   public async register(userReg: UserReg) {
