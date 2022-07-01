@@ -1,12 +1,16 @@
+import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
 import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [AuthService, HttpClientModule],
+    });
     guard = TestBed.inject(AuthGuard);
   });
 
