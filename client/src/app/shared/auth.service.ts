@@ -17,7 +17,7 @@ import {
 } from 'rxjs/operators';
 import { JWTTokenService } from './jwt-token.service';
 import { Router } from '@angular/router';
-import { UserReg } from '../auth/user.model';
+import { UserReg, User } from '../auth/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,7 @@ export class AuthService {
   private path = '/auth';
   public token: string | null = null;
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  currentUser = {};
+  currentUser: User = { email: '', password: '' };
   constructor(
     private http: HttpClient,
     private jwtService: JWTTokenService,
@@ -40,8 +40,8 @@ export class AuthService {
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.accessToken);
         this.jwtService.setToken(res.accessToken);
-        this.jwtService.decodeToken();
-        this.currentUser = this.jwtService.decodeToken;
+
+        this.router.navigate(['user-profile/' + res._id]);
       });
   }
 
@@ -77,6 +77,21 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem('access_token');
+  }
+
+  getCurrentUSer() {
+    if (this.isLoggedIn) this.jwtService.setToken(this.getToken() || '');
+
+    this.currentUser = {
+      email: this.jwtService.getTokenValue('email'),
+      password: '',
+      role: this.jwtService.getTokenValue('role'),
+      firstName: this.jwtService.getTokenValue('firstName'),
+      lastName: this.jwtService.getTokenValue('lastName'),
+    };
+
+    console.log(this.currentUser, 'current User');
+    return this.currentUser;
   }
 
   get isLoggedIn(): boolean {

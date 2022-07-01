@@ -9,6 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { BookDetailComponent } from './book-details/book-detail.component';
 import { AddEditBookComponent } from './add-book/add-edit-book.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   // basic routes
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'books/add', component: AddEditBookComponent },
       { path: 'books/edit/:_id', component: AddEditBookComponent },
       { path: 'books/:_id', component: BookDetailComponent },
+      { path: 'user-profile/:_id', component: UserProfileComponent },
     ],
   },
   // login route

@@ -26,11 +26,21 @@ export class JWTTokenService {
     return jwt_decode(this.jwtToken);
   }
 
-  getUser() {
+  getName() {
     this.decodeToken();
     return this.decodedToken
       ? this.decodedToken['firstName'] + ' ' + this.decodedToken['lastName']
       : null;
+  }
+
+  getFistName() {
+    this.decodeToken();
+    return this.decodedToken ? this.decodedToken['firstName'] : null;
+  }
+
+  getLastName() {
+    this.decodeToken();
+    return this.decodedToken ? this.decodedToken['lasName'] : null;
   }
 
   getEmailId() {
@@ -41,6 +51,12 @@ export class JWTTokenService {
   getExpiryTime() {
     this.decodeToken();
     return this.decodedToken ? this.decodedToken['exp'] : '';
+  }
+
+  getTokenValue(key: string) {
+    this.decodeToken();
+    console.log('decodeToken', this.decodedToken);
+    return this.decodedToken ? this.decodedToken[key] : '';
   }
 
   isTokenExpired(): boolean {

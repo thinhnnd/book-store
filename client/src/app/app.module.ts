@@ -18,6 +18,7 @@ import { BookDetailComponent } from './book-details/book-detail.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddEditBookComponent } from './add-book/add-edit-book.component';
 import { AuthInterceptor } from './shared/authconfig.interceptor';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AuthInterceptor } from './shared/authconfig.interceptor';
     BookDetailComponent,
     NgbdSortableHeader,
     AddEditBookComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

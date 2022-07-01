@@ -45,15 +45,13 @@ export class RegisterComponent implements OnInit {
   }
 
   getDataFromForm() {
-    let registerData = {
+    return {
       email: this.registerForm.controls['email'].value,
       firstName: this.registerForm.controls['firstName'].value,
       lastName: this.registerForm.controls['lastName'].value,
       password: this.registerForm.controls['password'].value,
       repeatPassword: this.registerForm.controls['repeatPassword'].value,
     };
-
-    return registerData;
   }
 
   ngOnInit(): void {
