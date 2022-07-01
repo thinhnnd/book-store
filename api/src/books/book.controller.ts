@@ -19,11 +19,8 @@ class BookController {
 
   constructor(@inject(TYPES.BookService) bookService: BookService) {
     this.router = express.Router();
-    this.initializeRoutes();
     this.bookService = bookService;
   }
-
-  public initializeRoutes() {}
 
   @httpGet('/')
   async getBooks(request: express.Request, response: express.Response) {

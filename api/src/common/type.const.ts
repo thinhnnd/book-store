@@ -5,6 +5,7 @@ const TYPES = {
   AuthService: Symbol.for('AuthService'),
   UserService: Symbol.for('UserService'),
   JwtAuthMiddleware: Symbol.for('JwtAuthMiddleware'),
+  OrdersService: Symbol('OrdersService'),
 };
 
 export default TYPES;

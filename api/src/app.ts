@@ -10,11 +10,13 @@ import { BookService } from './books/book.services';
 import TYPES from './common/type.const';
 import './books/book.controller';
 import './auth/auth.controller';
+import './orders/orders.controller';
 import { MongoDBClient } from './utils/mongodb/client';
 import { AuthService } from './auth/auth.service';
 import { JwtService } from './auth/jwt.service';
 import { UserService } from './users/models/user.service';
 import { JwtAuthMiddleware } from './middlewares/jwt-auth.middleware';
+import { OrdersService } from './orders/orders.service';
 
 class App {
   public app: express.Application;
@@ -44,6 +46,7 @@ class App {
     this.container.bind<JwtService>(TYPES.JwtService).to(JwtService);
     this.container.bind<AuthService>(TYPES.AuthService).to(AuthService);
     this.container.bind<UserService>(TYPES.UserService).to(UserService);
+    this.container.bind<OrdersService>(TYPES.OrdersService).to(OrdersService);
     this.container
       .bind<JwtAuthMiddleware>(TYPES.JwtAuthMiddleware)
       .to(JwtAuthMiddleware);

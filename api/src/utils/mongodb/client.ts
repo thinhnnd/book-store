@@ -93,6 +93,20 @@ export class MongoDBClient {
       );
   }
 
+  public updateWithOperators<T>(
+    collection: string,
+    objectId: string,
+    operators: any,
+    result: (error, data) => void,
+  ): void {
+    console.log('model', operators);
+    this.db
+      .collection(collection)
+      .updateOne({ _id: new ObjectId(objectId) }, operators, (error, update) =>
+        result(error, update),
+      );
+  }
+
   public remove(
     collection: string,
     objectId: string,
