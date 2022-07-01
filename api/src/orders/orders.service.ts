@@ -24,6 +24,6 @@ export class OrdersService {
       );
     });
 
-    return 'Create order successfuly';
+    return { msg: 'Create order successfuly' };
   }
 }
