@@ -17,6 +17,7 @@ import {
 } from 'rxjs/operators';
 import { JWTTokenService } from './jwt-token.service';
 import { Router } from '@angular/router';
+import { UserReg } from '../auth/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +45,11 @@ export class AuthService {
       });
   }
 
+  signUp(user: UserReg): Observable<any> {
+    let api = `${this.authUrls}/register`;
+    return this.http.post(api, user).pipe(catchError(this.handleError));
+  }
+
   logout(): void {
     // clear token remove user from local storage to log user out
     this.token = null;
@@ -67,5 +73,14 @@ export class AuthService {
       msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(() => new Error(msg));
+  }
+
+  getToken() {
+    return localStorage.getItem('access_token');
+  }
+
+  get isLoggedIn(): boolean {
+    let authToken = localStorage.getItem('access_token');
+    return authToken !== null ? true : false;
   }
 }

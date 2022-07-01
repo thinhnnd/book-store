@@ -6,6 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserReg } from '../auth/user.model';
+import { AuthService } from '../shared/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './register.component.html',
@@ -19,12 +21,13 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     this.returnUrl = '';
     this.registerForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      fistName: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       password: new FormControl('', [
         Validators.required,
@@ -41,6 +44,18 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls;
   }
 
+  getDataFromForm() {
+    let registerData = {
+      email: this.registerForm.controls['email'].value,
+      firstName: this.registerForm.controls['firstName'].value,
+      lastName: this.registerForm.controls['lastName'].value,
+      password: this.registerForm.controls['password'].value,
+      repeatPassword: this.registerForm.controls['repeatPassword'].value,
+    };
+
+    return registerData;
+  }
+
   ngOnInit(): void {
     // this.loginForm = this.formBuilder.group({
     //   username: ['', Validators.required],
@@ -52,7 +67,14 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log('submited');
-    console.log(this.registerForm);
+    console.log('register');
+    let registerData = this.getDataFromForm();
+
+    this.authService.signUp(registerData).subscribe((res) => {
+      if (res.acknowledged) {
+        this.registerForm.reset();
+        this.router.navigate(['login']);
+      }
+    });
   }
 }

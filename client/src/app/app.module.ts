@@ -15,8 +15,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BookListComponent } from './book-list/book-list.component';
 import { NgbdSortableHeader } from './book-list/sortable.directive';
 import { BookDetailComponent } from './book-details/book-detail.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddEditBookComponent } from './add-book/add-edit-book.component';
+import { AuthInterceptor } from './shared/authconfig.interceptor';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,13 @@ import { AddEditBookComponent } from './add-book/add-edit-book.component';
     NgbModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

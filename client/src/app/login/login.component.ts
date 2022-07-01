@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAuth } from './models/auth.model';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../shared/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
