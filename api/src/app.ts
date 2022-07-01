@@ -14,6 +14,7 @@ import { MongoDBClient } from './utils/mongodb/client';
 import { AuthService } from './auth/auth.service';
 import { JwtService } from './auth/jwt.service';
 import { UserService } from './users/models/user.service';
+import { JwtAuthMiddleware } from './middlewares/jwt-auth.middleware';
 
 class App {
   public app: express.Application;
@@ -43,6 +44,9 @@ class App {
     this.container.bind<JwtService>(TYPES.JwtService).to(JwtService);
     this.container.bind<AuthService>(TYPES.AuthService).to(AuthService);
     this.container.bind<UserService>(TYPES.UserService).to(UserService);
+    this.container
+      .bind<JwtAuthMiddleware>(TYPES.JwtAuthMiddleware)
+      .to(JwtAuthMiddleware);
   }
 
   // private initializeMiddlewares() {

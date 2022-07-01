@@ -41,6 +41,12 @@ export class AuthService {
   }
 
   public async register(userReg: UserReg) {
+    var user: User = new User();
+    user.email = userReg.email;
+    user.password = userReg.password;
+    user.role = 'normal';
+    user.firstName = userReg.firstName;
+    user.lastName = userReg.lastName;
     return this.userService.createUser(userReg);
   }
 }

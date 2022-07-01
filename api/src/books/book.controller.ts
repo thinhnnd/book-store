@@ -59,7 +59,7 @@ class BookController {
     response.send(book);
   }
 
-  @httpDelete('/:id')
+  @httpDelete('/:id', TYPES.JwtAuthMiddleware)
   async deleteABook(request: Request, response: Response) {
     let bookId = request.params.id;
 
