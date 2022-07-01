@@ -11,6 +11,7 @@ import { BookDetailComponent } from './book-details/book-detail.component';
 import { AddEditBookComponent } from './add-book/add-edit-book.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AuthGuard } from './shared/auth.guard';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   // basic routes
@@ -29,6 +30,7 @@ const routes: Routes = [
         component: UserProfileComponent,
         canActivate: [AuthGuard],
       },
+      { path: 'cart', component: CartComponent },
     ],
   },
   // login route

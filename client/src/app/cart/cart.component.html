@@ -1,0 +1,68 @@
+<div class="content row">
+
+    <h4>Cart </h4>
+
+
+
+
+    <form>
+        <div class="mb-3 row">
+            <!-- <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+            <div class="col-xs-3 col-sm-auto">
+                <input id="table-complete-search" type="text" class="form-control" name="searchTerm"
+                    [(ngModel)]="bookService.searchTerm">
+            </div> -->
+            <!-- <span class="col col-form-label" *ngIf="bookService.loading$ | async">Loading...</span> -->
+        </div>
+        <div>
+            <ng-container *ngIf="cartList && cartList.length <= 0">
+                <h5>Cart is Empty</h5>
+            </ng-container>
+
+            <ng-container *ngIf="cartList && cartList.length > 0">
+                <p class="text-center">Total in cart: <span *ngIf="cartList.length">{{ cartList.length }}</span></p>
+
+                <div *ngFor="let cartItem of cartList" class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-2">
+                            <img src="{{cartItem.item.image}}" class="img-fluid rounded-start card-img-top-2"
+                                alt="cartItem.item.title">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{cartItem.item.title}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="card-text">Quantity: {{cartItem.quantity }}</p>
+                            <p class="card-text">Price: {{cartItem.item.price * cartItem.quantity }}</p>
+
+                        </div>
+                    </div>
+                </div>
+                <h5>
+                    Total Price: {{ totalPrice }}
+                </h5>
+
+                <button class="btn btn-primary" type="sumit">
+                    Buy
+                </button>
+            </ng-container>
+
+        </div>
+
+        <!-- <div class="d-flex justify-content-between p-2">
+            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="bookService.pageNum"
+                [pageSize]="bookService.pageSize">
+            </ngb-pagination>
+
+            <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="bookService.pageSize">
+                <option [ngValue]="10">10 items per page</option>
+                <option [ngValue]="20">20 items per page</option>
+                <option [ngValue]="50">50 items per page</option>
+            </select>
+        </div> -->
+
+    </form>
+
+</div>

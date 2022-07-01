@@ -9,3 +9,8 @@ export interface IBook {
   price: number;
   description: string;
 }
+
+export interface CartItem {
+  item: IBook;
+  quantity: number;
+}

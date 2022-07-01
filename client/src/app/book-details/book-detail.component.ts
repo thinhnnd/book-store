@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Category } from 'src/common/category.enum';
 import { IBook } from '../book-list/book.interface';
 import { BookDetailService } from './book-detail.service';
+import { CartService } from '../cart/cart.service';
 
 @Component({
   template: 'app-book-detail',
@@ -16,7 +17,8 @@ export class BookDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private bookDetailService: BookDetailService
+    private bookDetailService: BookDetailService,
+    private cartService: CartService
   ) {
     this._id = '';
     this.book = {
@@ -41,5 +43,12 @@ export class BookDetailComponent implements OnInit {
       this.bookDetailService
         .getABook(this._id)
         .subscribe((book) => (this.book = book));
+  }
+
+  addToCart() {
+    console.log('Add To cart', this.cartService.cartList);
+
+    this.cartService.addToCart(this.book);
+    console.log('Add To cart', this.cartService.cartList);
   }
 }
