@@ -16,7 +16,7 @@ export class UserProfileComponent implements OnInit {
     private actRoute: ActivatedRoute
   ) {
     // let id = this.actRoute.snapshot.paramMap.get('_id');
-    this.currentUser = this.authService.getCurrentUSer();
+    this.currentUser = this.authService.getCurrentUser();
   }
 
   ngOnInit(): void {}

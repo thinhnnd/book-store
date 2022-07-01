@@ -32,7 +32,9 @@ export class AuthService {
     private http: HttpClient,
     private jwtService: JWTTokenService,
     public router: Router
-  ) {}
+  ) {
+    this.getCurrentUser();
+  }
 
   login(auth: IAuth) {
     return this.http
@@ -79,7 +81,7 @@ export class AuthService {
     return localStorage.getItem('access_token');
   }
 
-  getCurrentUSer() {
+  getCurrentUser() {
     if (this.isLoggedIn) this.jwtService.setToken(this.getToken() || '');
 
     this.currentUser = {

@@ -10,6 +10,7 @@ import { BookListComponent } from './book-list/book-list.component';
 import { BookDetailComponent } from './book-details/book-detail.component';
 import { AddEditBookComponent } from './add-book/add-edit-book.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
   // basic routes
@@ -17,13 +18,17 @@ const routes: Routes = [
     path: '',
     component: AppLayoutComponent,
     children: [
-      { path: '', component: HomeComponent },
+      { path: '', component: BookListComponent },
       { path: 'contact-us', component: ContactUsComponent },
       { path: 'books', component: BookListComponent },
       { path: 'books/add', component: AddEditBookComponent },
       { path: 'books/edit/:_id', component: AddEditBookComponent },
       { path: 'books/:_id', component: BookDetailComponent },
-      { path: 'user-profile/:_id', component: UserProfileComponent },
+      {
+        path: 'user-profile/:_id',
+        component: UserProfileComponent,
+        canActivate: [AuthGuard],
+      },
     ],
   },
   // login route
