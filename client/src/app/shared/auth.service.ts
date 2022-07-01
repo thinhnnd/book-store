@@ -55,7 +55,10 @@ export class AuthService {
   logout(): void {
     // clear token remove user from local storage to log user out
     this.token = null;
+    this.jwtService.setToken('');
     localStorage.removeItem('currentUser');
+    this.currentUser = { email: '', password: '' };
+    this.router.navigate(['']);
   }
 
   doLogout() {

@@ -1,42 +1,30 @@
-<div class="content">
+<div class="content row">
 
     <h4>Book list</h4>
-    <p>Total book: <span *ngIf="total$">{{ total$ | async }}</span></p>
+    <p class="text-center">Total book: <span *ngIf="total$">{{ total$ | async }}</span></p>
 
     <form>
         <div class="mb-3 row">
-            <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+            <!-- <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
             <div class="col-xs-3 col-sm-auto">
                 <input id="table-complete-search" type="text" class="form-control" name="searchTerm"
                     [(ngModel)]="bookService.searchTerm">
-            </div>
+            </div> -->
             <span class="col col-form-label" *ngIf="bookService.loading$ | async">Loading...</span>
         </div>
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col" sortable="title">Title</th>
-                    <th scope="col" sortable="category">Category</th>
-                    <th scope="col" sortable="price">Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let book of books$ | async" style="cursor: pointer;" [routerLink]="['/books/', book._id ]">
-                    <th scope="row">{{ book._id }}</th>
-                    <td>
-                        <ngb-highlight [result]="book.title" [term]="bookService.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                        <ngb-highlight [result]="book.category" [term]="bookService.searchTerm"></ngb-highlight>
-                    </td>
-                    <td>
-                        <ngb-highlight [result]="book.price | number" [term]="bookService.searchTerm"></ngb-highlight>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div *ngFor="let book of books$ | async" class="col" style="cursor: pointer;"
+                [routerLink]="['/books/', book._id ]">
+                <div class="card">
+                    <img src="{{book.image}}" class="card-img-top pt-2" alt="book.title">
+                    <div class="card-body">
+                        <h5 class="card-title">{{book.title}}</h5>
+                        <p class="card-text">Category: {{book.category}}</p>
+                        <p class="card-text">Price: {{book.price}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="d-flex justify-content-between p-2">
             <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="bookService.pageNum"
