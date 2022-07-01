@@ -33,7 +33,7 @@ export class CartComponent implements OnInit {
 
   buy() {
     this.cartService.buy().subscribe((res: any) => {
-      localStorage.removeItem('access_token');
+      localStorage.removeItem('cartList');
       alert('Buy successfully');
       this.router.navigate(['/']);
     });

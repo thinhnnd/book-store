@@ -16,7 +16,11 @@
         </div>
         <div>
             <ng-container *ngIf="cartList && cartList.length <= 0">
-                <h5>Cart is Empty</h5>
+                <div class="d-flex justify-content-center">
+                    <img src="https://rtworkspace.com/wp-content/plugins/rtworkspace-ecommerce-wp-plugin/assets/img/empty-cart.png"
+                        alt="Empty Cart" />
+                </div>
+
             </ng-container>
 
             <ng-container *ngIf="cartList && cartList.length > 0">
