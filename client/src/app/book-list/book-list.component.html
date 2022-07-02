@@ -13,15 +13,37 @@
             <span class="col col-form-label" *ngIf="bookService.loading$ | async">Loading...</span>
         </div>
         <div class="row row-cols-1 row-cols-md-2 g-4">
-            <div *ngFor="let book of books$ | async" class="col" style="cursor: pointer;"
-                [routerLink]="['/books/', book._id ]">
+            <div *ngFor="let book of books$ | async" class="col-sm-6 col-md-4 col-lg-3 mb-4 mb-md-0"
+                style="cursor: pointer;" [routerLink]="['/books/', book._id ]">
                 <div class="card">
                     <img src="{{book.image}}" class="card-img-top pt-2" alt="book.title">
                     <div class="card-body">
-                        <h5 class="card-title">{{book.title}}</h5>
-                        <p class="card-text">Category: {{book.category}}</p>
-                        <p class="card-text">Quantity: {{book.quantity}}</p>
-                        <p class="card-text">Price: {{book.price}}</p>
+
+                        <div class="d-flex justify-content-between mb-1">
+                            <p class="mb-0">{{book.title}}</p>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <h5 class="mb-0 text-danger">{{book.price}}</h5>
+                            <!-- <p class="small text-danger"><s>$1099</s></p> -->
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <p class="small"><a href="#!" class="text-muted">{{book.category}}</a></p>
+                            <!-- <p class="small text-danger"><s>$1099</s></p> -->
+                        </div>
+
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <p class="text-muted mb-0">Available: <span class="fw-bold">{{book.quantity}}</span></p>
+                            <div class="ms-auto text-warning">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -33,9 +55,9 @@
             </ngb-pagination>
 
             <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="bookService.pageSize">
-                <option [ngValue]="10">10 items per page</option>
-                <option [ngValue]="20">20 items per page</option>
-                <option [ngValue]="50">50 items per page</option>
+                <option [ngValue]="12">12 items per page</option>
+                <option [ngValue]="24">24 items per page</option>
+                <option [ngValue]="50">60 items per page</option>
             </select>
         </div>
 

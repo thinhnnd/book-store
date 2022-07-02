@@ -37,7 +37,7 @@ export class BookService {
 
   private _state: State = {
     pageNum: 1,
-    pageSize: 10,
+    pageSize: 12,
     searchTerm: '',
   };
 
