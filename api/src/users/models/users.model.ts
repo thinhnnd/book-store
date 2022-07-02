@@ -1,4 +1,7 @@
 export class User {
+  //access modifier, getter seter neu can thiet
+  // purpose: unit test
+
   _id?: string;
   email: string;
   password: string;
@@ -6,3 +9,5 @@ export class User {
   lastName?: string;
   role?: string;
 }
+
+// soft delete user

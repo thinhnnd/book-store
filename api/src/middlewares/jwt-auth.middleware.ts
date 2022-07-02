@@ -12,16 +12,19 @@ import { CommonConst } from '../common/common.const';
 export class JwtAuthMiddleware extends BaseMiddleware {
   public handler(req: Request, res: Response, next: NextFunction): void {
     const token = this.getTokenFromHeader(req);
-    let jwtPayload;
+    let jwtPayload; //define type
 
     //Try to validate the token and get data
     try {
       jwtPayload = <any>jwt.verify(token, CommonConst.jwt.secret);
       res.locals.jwtPayload = jwtPayload;
+      // error MUST have type
     } catch (error) {
       //If token is not valid, respond with 401 (unauthorized)
+      //DP MPT: jard code
+      // SHOULD: http interceptor
       res.status(401).send();
-      return;
+      return; // remove this smell code
     }
 
     //The token is valid for 1 hour
@@ -40,6 +43,7 @@ export class JwtAuthMiddleware extends BaseMiddleware {
     next();
   }
 
+  // LIMIT of usage OR operator when it comes to return tyoe
   private getTokenFromHeader(req: Request): string | null {
     if (req.headers.authorization) {
       const authHeader = req.headers.authorization.split(' ');

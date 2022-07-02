@@ -16,6 +16,7 @@ export class AuthService {
     @inject(TYPES.UserService) private userService: UserService,
   ) {}
 
+  // accessmodifier, return type
   checkCredential(auth: Auth) {
     const { email, password } = auth;
     return new Promise<User>((resolve, rejects) => {
@@ -25,6 +26,7 @@ export class AuthService {
         null,
         null,
         (error, data: User[]) => {
+          // bổ sung errror handling
           if (error) rejects(error);
           if (data.length > 0) resolve(data[0]);
           resolve(null);
@@ -33,6 +35,7 @@ export class AuthService {
     });
   }
 
+  // return type
   public async login(auth: Auth) {
     const res = await this.checkCredential(auth);
     if (!res) throw new Error('Invalid username or password');
@@ -43,8 +46,13 @@ export class AuthService {
     };
   }
 
+  // every functions should have comment and desciption for its params and return type
   public async register(userReg: UserReg) {
     var user: User = new User();
+    // factory pattern: apply initialize
+    // every class should define its interface
+    // ** when use create class, create constructor
+    const { email, password, role, firstName, lastName } = userReg;
     user.email = userReg.email;
     user.password = userReg.password;
     user.role = 'normal';

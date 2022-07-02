@@ -24,7 +24,8 @@
             </ng-container>
 
             <ng-container *ngIf="cartList && cartList.length > 0">
-                <p class="text-center">Total in cart: <span *ngIf="cartList.length">{{ cartList.length }}</span></p>
+                <p class="text-center">Total in cart: <span *ngIf="cartList.length">{{ this.countTotalInCart() }}</span>
+                </p>
 
                 <div *ngFor="let cartItem of cartList" class="card mb-3">
                     <div class="row g-0">

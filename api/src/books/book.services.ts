@@ -23,11 +23,13 @@ export class BookService {
   //   });
   // }
 
+  // es6 RESTLESS parameter
   async getBooks(
     pageNum: number = 1,
     limit: number = 50,
   ): Promise<Pagination<Book[]>> {
     return new Promise<Pagination<Book[]>>((resolve, reject) => {
+      // relationships between book and category
       this.mongoClient.find(
         'books',
         {},

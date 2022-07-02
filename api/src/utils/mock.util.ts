@@ -2,6 +2,9 @@ import { Book } from '../books/models/book.model';
 import { Category } from '../common/category.enum';
 import { UserType } from '../common/user-type.enum';
 import { User } from '../models/user.model';
+
+// use library instead of hard coding
+// dataseeding
 export class MockUtil {
   static BOOKLIST_DATA: Book[] = [
     {

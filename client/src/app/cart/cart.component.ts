@@ -31,6 +31,14 @@ export class CartComponent implements OnInit {
     return total;
   }
 
+  countTotalInCart() {
+    let total = 0;
+    this.cartList.forEach((item) => {
+      total = total + item.quantity;
+    });
+    return total;
+  }
+
   buy() {
     this.cartService.buy().subscribe((res: any) => {
       localStorage.removeItem('cartList');

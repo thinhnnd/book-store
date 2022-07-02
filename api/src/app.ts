@@ -62,12 +62,13 @@ class App {
   //   });
   // }
 
-  private listen() {
+  private listen(): void {
     this.app.listen(this.port, () => {
       console.log(`App listening on the port ${this.port}`);
     });
   }
 
+  // Need boolean return type
   public start() {
     let server = new InversifyExpressServer(this.container);
     server.setConfig((app) => {
@@ -85,4 +86,8 @@ class App {
   }
 }
 
+//Tìm hiểu về import và export
+// import *
+// import {}
+// import
 export default App;
