@@ -37,7 +37,10 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" routerLink="/cart"><i class="bi bi-cart"></i></a>
+                <div class="cart-wrapper">
+                  <a class="nav-link active p-1" aria-current="page" routerLink="/cart"><i class="bi bi-cart"></i></a>
+                  <span class="cart-count">1</span>
+                </div>
               </li>
 
               <li *ngIf="this.authService.isLoggedIn" ngbDropdown class="nav-item">
