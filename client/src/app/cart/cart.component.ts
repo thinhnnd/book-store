@@ -13,10 +13,9 @@ import { throwError } from 'rxjs';
 export class CartComponent implements OnInit {
   cartList: CartItem[] = [];
   totalPrice: number = 0;
-  constructor(private cartService: CartService, private router: Router) {}
+  constructor(public cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
-    this.cartService.getCartListFromLocalSorage();
     this.cartList = this.cartService.cartList;
     console.log('this cartList', this.cartList);
     if (this.cartList && this.cartList.length)

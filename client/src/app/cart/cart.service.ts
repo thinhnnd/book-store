@@ -22,15 +22,14 @@ import { CartItem, IBook } from '../book-list/book.interface';
 @Injectable({
   providedIn: 'root',
 })
-export class CartService implements OnInit {
+export class CartService {
   private authUrls = environment.apiUrl + '/cart';
   public cartList: CartItem[] = [];
   private path = '/auth';
   public token: string | null = null;
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser: User = { email: '', password: '' };
-  constructor(private http: HttpClient, public router: Router) {}
-  ngOnInit(): void {
+  constructor(private http: HttpClient, public router: Router) {
     this.getCartListFromLocalSorage();
   }
 
@@ -54,6 +53,22 @@ export class CartService implements OnInit {
     localStorage.setItem('cartList', JSON.stringify(this.cartList));
 
     alert(`Book ${book.item.title} is added`);
+  }
+
+  removeAnItem(_id?: string) {
+    this.getCartListFromLocalSorage();
+    let book = this.cartList.find((book) => {
+      return book.item._id === _id;
+    });
+
+    if (!book) {
+      console.log('found not found _id: ', _id);
+      return;
+    } else {
+      this.cartList = this.cartList.filter((i) => i.item._id !== _id);
+    }
+
+    localStorage.setItem('cartList', JSON.stringify(this.cartList));
   }
 
   getCartListFromLocalSorage() {
