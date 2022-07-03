@@ -16,10 +16,7 @@ export class CartComponent implements OnInit {
   constructor(public cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
-    this.cartList = this.cartService.cartList;
-    console.log('this cartList', this.cartList);
-    if (this.cartList && this.cartList.length)
-      this.totalPrice = this.countTotalPrice();
+    this.loadCartData();
   }
 
   countTotalPrice() {
@@ -46,6 +43,15 @@ export class CartComponent implements OnInit {
     });
   }
 
+  loadCartData() {
+    this.cartList = this.cartService.cartList;
+    console.log('this cartList', this.cartList);
+    if (this.cartList && this.cartList.length) {
+      this.countTotalInCart();
+      this.totalPrice = this.countTotalPrice();
+    }
+  }
+
   handleError(error: HttpErrorResponse) {
     let msg = '';
     if (error.error instanceof ErrorEvent) {
@@ -56,5 +62,10 @@ export class CartComponent implements OnInit {
       msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(() => new Error(msg));
+  }
+
+  removeAnItem(_id?: string) {
+    this.cartService.removeAnItem(_id);
+    this.loadCartData();
   }
 }
