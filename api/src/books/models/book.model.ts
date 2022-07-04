@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import { Category } from '../../common/category.enum';
 import { IBook } from './book.interface';
 export class Book implements IBook {
@@ -15,6 +16,6 @@ export class Book implements IBook {
     public quantity: number,
     public price: number,
     public description: string,
-    public _id?: string,
+    public _id?: ObjectId | string,
   ) {}
 }

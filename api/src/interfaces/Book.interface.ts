@@ -1,5 +1,4 @@
-import { Category } from 'common/category.enum';
-
+import { Category } from '../common/category.enum';
 export interface IBook {
   title: string;
   image: string;
