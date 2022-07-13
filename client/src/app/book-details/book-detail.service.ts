@@ -29,7 +29,7 @@ export class BookDetailService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute) {}
+  constructor(private httpClient: HttpClient) {}
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

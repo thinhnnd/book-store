@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
-            <h3 class="pt-2 mb-0">{{ book.title }}</h3>
+            <h3 id="title" class="pt-2 mb-0">{{ book.title }}</h3>
             <br />
             <p>Category: {{ book.category }}</p>
             <p>Price: <span class="current-price">{{book.price}}</span></p>
@@ -17,8 +17,7 @@
 
     <div class="row content mt-2 pt-2">
         <div class="col-12">
-            <h5>Description
-            </h5>
+            <h5 id="detail-desc">Description</h5>
             <p>{{book.description}}</p>
         </div>
     </div>

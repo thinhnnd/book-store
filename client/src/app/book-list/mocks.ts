@@ -4,12 +4,12 @@ import { Category } from 'src/common/category.enum';
 export const BOOKS: IBook[] = [
   {
     _id: '1',
-    title: 'Cornelis',
+    title: 'Book No 1',
     image:
       'https://robohash.org/voluptatumperferendissaepe.png?size=100x100&set=set1',
     category: Category.comedy,
-    quantity: 174,
-    price: 116.3,
+    quantity: 100,
+    price: 45.6,
     description:
       'nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam convallis nunc proin at turpis a',
   },
