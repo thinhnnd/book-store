@@ -1,13 +1,13 @@
-interface Writer<T> {
-    create(item: Omit<T, 'id'>): Promise<T | null>
-    createMany(item: Omit<T, 'id'>[]): Promise<T[] | null>
-    update(id: string, item: Partial<T>): Promise<boolean>
-    delete(id: string): Promise<boolean>
-  }
-  interface Reader<T> {
-    find(item: Partial<T>): Promise<T[] | null>
-    findOne(id: string | Partial<T>): Promise<T | null>
-    exist(id: string | Partial<T>): Promise<boolean>
-  }
+interface Writer<Entity> {
+  create(item: Omit<Entity, 'id'>): Promise<Entity | null>;
+  createMany(item: Omit<Entity, 'id'>[]): Promise<Entity[] | null>;
+  update(id: string, item: Partial<Entity>): Promise<boolean>;
+  delete(id: string): Promise<boolean>;
+}
+interface Reader<Entity> {
+  find(item: Partial<Entity>): Promise<Entity[] | null>;
+  findOne(id: string | Partial<Entity>): Promise<Entity | null>;
+  exist(id: string | Partial<Entity>): Promise<boolean>;
+}
 
-  export type BaseRepository<T> = Writer<T> & Reader<T>
+export type IBaseRepository<Entity> = Writer<Entity> & Reader<Entity>;
